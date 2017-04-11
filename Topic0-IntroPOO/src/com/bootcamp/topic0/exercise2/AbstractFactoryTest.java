@@ -22,24 +22,24 @@ public class AbstractFactoryTest {
 		SQLConnectionsFactory sqlConnectionsFactory = abstractFactory.getSQLConnectionsFactory(FactoryType.OPENSOURCE);
 		DataBaseConnectionInterface connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.MYSQL);
 		connection.configure("user0", "pswd user0", "host user0");
-		Logger.getAnonymousLogger().info(connection.toString()+ System.getProperty("line.separator"));
+		Logger.getAnonymousLogger().info(connection.toString());
 		
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.POSTGRE);
 		connection.configure("user1", "pswd user1", "host user1");
-		Logger.getAnonymousLogger().info(connection.toString()+ System.getProperty("line.separator"));
+		Logger.getAnonymousLogger().info(connection.toString());
 		
 		sqlConnectionsFactory = abstractFactory.getSQLConnectionsFactory(FactoryType.CORPORATIVE);
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.ORACLE);
 		connection.configure("user2", "pswd user2", "host user2");
-		Logger.getAnonymousLogger().info(connection.toString()+ System.getProperty("line.separator"));
+		Logger.getAnonymousLogger().info(connection.toString());
 		
 		sqlConnectionsFactory = abstractFactory.getSQLConnectionsFactory(FactoryType.OPENSOURCE);
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.MYSQL);
 		connection.connect();
-		Logger.getAnonymousLogger().info(connection.toString()+ System.getProperty("line.separator"));
+		Logger.getAnonymousLogger().info(connection.toString());
 		
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.POSTGRE);
 		connection.configure("user3", "pswd user3", "host user3");
-		Logger.getAnonymousLogger().info(connection.toString()+ System.getProperty("line.separator"));
+		Logger.getAnonymousLogger().info(connection.toString());
 	}
 }
