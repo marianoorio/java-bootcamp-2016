@@ -1,6 +1,7 @@
 package com.bootcamp.topic0.exercise2;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
+import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
 
 /**
  * 
@@ -15,5 +16,5 @@ public abstract class SQLConnectionsFactory {
 	 * 
 	 * @return the data base's connection associated with the type	/ null otherwise
 	 */
-	public abstract AbstractDataBaseConnection getDataBaseConnection(String type);
+	public abstract DataBaseConnectionInterface getDataBaseConnection(ConnectionType type);
 }

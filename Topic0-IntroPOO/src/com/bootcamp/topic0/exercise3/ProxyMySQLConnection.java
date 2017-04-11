@@ -2,7 +2,7 @@ package com.bootcamp.topic0.exercise3;
 
 import java.util.logging.Logger;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
+import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
 import com.bootcamp.topic0.exercise2.MySQLConnection;
 
 /**
@@ -11,10 +11,11 @@ import com.bootcamp.topic0.exercise2.MySQLConnection;
  * 
  */
 
-public class ProxyMySQLConnection implements AbstractDataBaseConnection{
+public class ProxyMySQLConnection implements DataBaseConnectionInterface{
 	
 	private MySQLConnection realMySQLConnection = null;
 	
+	private final String NO_PERMISION_MESSAGE = "You do not have permission to execute this action!";
 	
 	/**
 	 * Create the proxy instance
@@ -25,17 +26,17 @@ public class ProxyMySQLConnection implements AbstractDataBaseConnection{
 	
 	@Override
 	public void connect() {
-		Logger.getAnonymousLogger().info("You do not have permission to execute this action! \n");
+		Logger.getAnonymousLogger().info(NO_PERMISION_MESSAGE);
 	}
 
 	@Override
 	public void configure(String user, String password, String host) {
-		Logger.getAnonymousLogger().info("You do not have permission to execute this action! \n");
+		Logger.getAnonymousLogger().info(NO_PERMISION_MESSAGE);
 	}
 
 	@Override
 	public void closeConnection() {
-		Logger.getAnonymousLogger().info("You do not have permission to execute this action! \n");
+		Logger.getAnonymousLogger().info(NO_PERMISION_MESSAGE);
 	}
 
 	@Override
@@ -45,6 +46,10 @@ public class ProxyMySQLConnection implements AbstractDataBaseConnection{
 
 	@Override
 	public String toString() {
-		return "ProxyMySQLConnection [realMySQLConnection=" + realMySQLConnection + "]";
+		StringBuilder sb = new StringBuilder("ProxyMySQLConnection ");
+		sb.append("[");
+		sb.append(realMySQLConnection.toString());
+		sb.append("] ");
+		return sb.toString();
 	}
 }

@@ -1,5 +1,7 @@
 package com.bootcamp.topic0.exercise4;
 
+import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+
 /**
  * 
  * Builder for MariaDB data base's connection type
@@ -19,7 +21,7 @@ public class MariaBDConnectionBuilder implements DataBaseConnectionBuilder{
 	
 	@Override
 	public void buildType() {
-		dataBaseConnection.setType("MariaDBConnection");
+		dataBaseConnection.setType(ConnectionType.MARIADB);
 	}
 
 	@Override

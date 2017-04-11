@@ -1,5 +1,7 @@
 package com.bootcamp.topic0.exercise4;
 
+import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+
 /**
  * 
  * Builder for MongoDB data base's connection type
@@ -18,7 +20,7 @@ public class MongoDBConnectionBuilder implements DataBaseConnectionBuilder{
 	
 	@Override
 	public void buildType() {
-		dataBaseConnection.setType("MongoDBConnection");
+		dataBaseConnection.setType(ConnectionType.MONGODB);
 	}
 
 	@Override

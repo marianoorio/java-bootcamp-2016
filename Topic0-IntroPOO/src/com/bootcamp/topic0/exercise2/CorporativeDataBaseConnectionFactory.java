@@ -1,6 +1,7 @@
 package com.bootcamp.topic0.exercise2;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
+import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
 
 /**
  * 
@@ -10,9 +11,10 @@ import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
 public class CorporativeDataBaseConnectionFactory extends SQLConnectionsFactory{
 	
 	@Override
-	public AbstractDataBaseConnection getDataBaseConnection(String type){
-		if("OracleSQLConnection".equals(type))
+	public DataBaseConnectionInterface getDataBaseConnection(ConnectionType type){
+		if("OracleSQLConnection".equals(type.getType())){
 			return OracleSQLConnection.getDataBaseConnection();
+		}
 		return null;
 	}
 }

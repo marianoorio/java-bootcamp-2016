@@ -1,1 +1,6 @@
 /bin/
+#eclipse generated
+.classpath
+.project
+.settings/
+

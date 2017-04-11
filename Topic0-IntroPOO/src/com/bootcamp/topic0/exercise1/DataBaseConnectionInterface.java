@@ -3,7 +3,7 @@ package com.bootcamp.topic0.exercise1;
 /**
  * Interface for DataBaseConnections
  */
-public interface AbstractDataBaseConnection {
+public interface DataBaseConnectionInterface {
 	
 	/**
 	 * Opens the connection to the DataBase
