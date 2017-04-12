@@ -14,13 +14,13 @@ public class OpenSourceDataBaseConnectionFactory extends SQLConnectionsFactory{
 	
 	@Override
 	public DataBaseConnectionInterface getDataBaseConnection(ConnectionType type){
-		if("MySQLConnection".equals(type.getType())){
+		if(ConnectionType.MYSQL.equals(type)){
 			return MySQLConnection.getDataBaseConnection();
 		}
-		else if ("ProxyMySQLConnection".equals(type.getType())){
+		else if (ConnectionType.PROXYMYSQL.equals(type)){
 			return new ProxyMySQLConnection();
 		}
-		else if ("PostgreSQLConnection".equals(type.getType())){
+		else if (ConnectionType.POSTGRE.equals(type)){
 			return PostgreSQLConnection.getDataBaseConnection();
 		}
 		return null;

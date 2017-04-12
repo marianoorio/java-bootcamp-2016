@@ -12,7 +12,7 @@ public class CorporativeDataBaseConnectionFactory extends SQLConnectionsFactory{
 	
 	@Override
 	public DataBaseConnectionInterface getDataBaseConnection(ConnectionType type){
-		if("OracleSQLConnection".equals(type.getType())){
+		if(ConnectionType.ORACLE.equals(type)){
 			return OracleSQLConnection.getDataBaseConnection();
 		}
 		return null;
