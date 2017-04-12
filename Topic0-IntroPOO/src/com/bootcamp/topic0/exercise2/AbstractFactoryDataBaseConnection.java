@@ -31,10 +31,10 @@ public class AbstractFactoryDataBaseConnection {
 	 * @return the factory associated with the type	/ null otherwise
 	 */
 	public SQLConnectionsFactory getSQLConnectionsFactory(FactoryType type){
-		if("Corporative".equals(type.getType())){
+		if(FactoryType.CORPORATIVE.equals(type)){
 			return new CorporativeDataBaseConnectionFactory();
 		}
-		else if("OpenSource".equals(type.getType())){
+		else if(FactoryType.OPENSOURCE.equals(type)){
 			return new OpenSourceDataBaseConnectionFactory();
 		}
 		return null;
