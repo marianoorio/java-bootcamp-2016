@@ -30,4 +30,10 @@ public interface DataBaseConnectionInterface {
 	 * @return true if the connection is stableced / false otherwise
 	 */
 	public boolean getConnectionState();
+	
+	/**
+	 *
+	 * @return the type of the connection to the DataBase
+	 */
+	public ConnectionType getType();
 }

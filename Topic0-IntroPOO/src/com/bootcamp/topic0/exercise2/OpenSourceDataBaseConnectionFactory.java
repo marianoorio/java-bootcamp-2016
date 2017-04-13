@@ -1,6 +1,6 @@
 package com.bootcamp.topic0.exercise2;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+import com.bootcamp.topic0.exercise1.ConnectionType;
 import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
 import com.bootcamp.topic0.exercise3.ProxyMySQLConnection;
 
@@ -11,6 +11,10 @@ import com.bootcamp.topic0.exercise3.ProxyMySQLConnection;
  */
 
 public class OpenSourceDataBaseConnectionFactory extends SQLConnectionsFactory{
+	
+	public OpenSourceDataBaseConnectionFactory(){
+		this.type = FactoryType.OPENSOURCE;
+	}
 	
 	@Override
 	public DataBaseConnectionInterface getDataBaseConnection(ConnectionType type){

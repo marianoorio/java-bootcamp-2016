@@ -1,6 +1,7 @@
 package com.bootcamp.topic0.exercise2;
 
 import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
+import com.bootcamp.topic0.exercise1.ConnectionType;
 
 /**
  * 

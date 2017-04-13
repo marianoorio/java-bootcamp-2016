@@ -3,10 +3,12 @@ package com.bootcamp.topic0.exercise2;
 import java.util.logging.Logger;
 
 import org.junit.Test;
+import org.junit.Assert;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+import com.bootcamp.topic0.exercise1.ConnectionType;
 import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
-import com.bootcamp.topic0.exercise2.AbstractFactoryDataBaseConnection.FactoryType;
+
+
 
 /**
  * 
@@ -24,14 +26,20 @@ public class AbstractFactoryTest {
 		connection.configure("user0", "pswd user0", "host user0");
 		Logger.getAnonymousLogger().info(connection.toString());
 		
+		Assert.assertEquals(ConnectionType.MYSQL, connection.getType());
+		
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.POSTGRE);
 		connection.configure("user1", "pswd user1", "host user1");
 		Logger.getAnonymousLogger().info(connection.toString());
+		
+		Assert.assertEquals(ConnectionType.POSTGRE, connection.getType());
 		
 		sqlConnectionsFactory = abstractFactory.getSQLConnectionsFactory(FactoryType.CORPORATIVE);
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.ORACLE);
 		connection.configure("user2", "pswd user2", "host user2");
 		Logger.getAnonymousLogger().info(connection.toString());
+		
+		Assert.assertEquals(FactoryType.CORPORATIVE, sqlConnectionsFactory.getType() );
 		
 		sqlConnectionsFactory = abstractFactory.getSQLConnectionsFactory(FactoryType.OPENSOURCE);
 		connection = sqlConnectionsFactory.getDataBaseConnection(ConnectionType.MYSQL);

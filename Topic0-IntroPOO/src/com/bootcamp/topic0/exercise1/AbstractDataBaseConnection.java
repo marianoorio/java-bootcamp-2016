@@ -10,26 +10,7 @@ import java.util.logging.Logger;
 public abstract class AbstractDataBaseConnection implements DataBaseConnectionInterface{
 	private static Logger logger = Logger.getLogger(DataBaseConnection.class.getName());
 	
-	public enum  ConnectionType {
-		
-		SINGLETON("SingletonConnection"),
-		MYSQL("MySQLConnection"), 
-		POSTGRE("PostgreSQLConnection"), 
-		ORACLE("OracleSQLConnection"),
-		PROXYMYSQL("ProxyMySQLConnection"),
-		MARIADB("MariaDBConnection"),
-		MONGODB("MongoDBConnection");
-
-		private String type;
-
-		private ConnectionType(String type) {
-			this.type = type;
-		}
-
-		public String getType() {
-			return type;
-		}
-	}
+	
 	
 	protected ConnectionType type;
 	protected String host;
@@ -96,6 +77,22 @@ public abstract class AbstractDataBaseConnection implements DataBaseConnectionIn
 		sb.append(" connectionState= ");sb.append(connectionState);
 		sb.append("] ");
 		return sb.toString();
+	}
+
+	public ConnectionType getType() {
+		return type;
+	}
+
+	public String getHost() {
+		return host;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public String getPassword() {
+		return password;
 	}
 	
 }

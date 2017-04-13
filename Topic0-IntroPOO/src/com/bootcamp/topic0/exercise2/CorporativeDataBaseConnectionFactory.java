@@ -1,6 +1,6 @@
 package com.bootcamp.topic0.exercise2;
 
-import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection.ConnectionType;
+import com.bootcamp.topic0.exercise1.ConnectionType;
 import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
 
 /**
@@ -9,6 +9,10 @@ import com.bootcamp.topic0.exercise1.DataBaseConnectionInterface;
  *
  */
 public class CorporativeDataBaseConnectionFactory extends SQLConnectionsFactory{
+	
+	public CorporativeDataBaseConnectionFactory(){
+		this.type = FactoryType.CORPORATIVE;
+	}
 	
 	@Override
 	public DataBaseConnectionInterface getDataBaseConnection(ConnectionType type){

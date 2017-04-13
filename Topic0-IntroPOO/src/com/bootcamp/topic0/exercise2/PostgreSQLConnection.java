@@ -2,6 +2,7 @@ package com.bootcamp.topic0.exercise2;
 
 
 import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
+import com.bootcamp.topic0.exercise1.ConnectionType;
 
 /**
  * 
@@ -10,7 +11,7 @@ import com.bootcamp.topic0.exercise1.AbstractDataBaseConnection;
  */
 
 public class PostgreSQLConnection  extends AbstractDataBaseConnection{
-	private static OracleSQLConnection dataBaseConnection;
+	private static PostgreSQLConnection dataBaseConnection;
 	
 	@Override
 	protected void setType() {
@@ -21,9 +22,9 @@ public class PostgreSQLConnection  extends AbstractDataBaseConnection{
 	/**
 	 * @return the reference to the unique dataBaseConnection instance
 	 */
-	public static OracleSQLConnection getDataBaseConnection(){
+	public static PostgreSQLConnection getDataBaseConnection(){
 		if (dataBaseConnection == null){
-			dataBaseConnection = new OracleSQLConnection();
+			dataBaseConnection = new PostgreSQLConnection();
 		}
 		return dataBaseConnection;
 	}
