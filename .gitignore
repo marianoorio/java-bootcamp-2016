@@ -19,3 +19,7 @@ hs_err_pid*
 /topic2/.classpath
 /topic2/.project
 /topic2/target
+
+/Topic3-Services/.classpath
+/Topic3-Services/.project
+/Topic3-Services/target

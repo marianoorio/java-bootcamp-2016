@@ -18,7 +18,7 @@ public class RecentFiles {
 	 *
 	 */
 	//private final int MAX_SIZE = 15;
-	private int maxSize = 15;
+	private int maxSize;
 	
 	
 	/**
@@ -31,7 +31,9 @@ public class RecentFiles {
 	 * Constructor
 	 */
 	public RecentFiles(){
+		//ArrayList is inefficient to add always on the first position?? 
 		pathList = new ArrayList<String>();
+		maxSize = 15;
 	}
 	
 	

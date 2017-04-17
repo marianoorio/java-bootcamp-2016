@@ -12,6 +12,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.bootcamp.topic2.exersice1.FileManager;
 
+/**
+ * 
+ * Unit test for FileManager class
+ *
+ */
+
 //@RunWith attaches a runner with the test class to initialize the test data
 @RunWith(MockitoJUnitRunner.class)
 public class FileManagerTest {
@@ -22,8 +28,10 @@ public class FileManagerTest {
 	public void setUp() throws Exception {
 		//spy the class because it's applying a singleton pattern and can't inject mock
 		fileManager = Mockito.spy(fileManager);
+		//Mockito.when(fileManager.getBufferedReader(Mockito.any(File.class))).thenReturn(null);
 		//Alternative when.then way
 		Mockito.doReturn(null).when(fileManager).getBufferedReader(Mockito.any(File.class));
+		
 	}
 
 	@After
