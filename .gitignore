@@ -16,4 +16,10 @@ hs_err_pid*
 /Topic1/topic1-app/.project
 /Topic1/topic1-app/target
 
-/topic2
+/topic2/.classpath
+/topic2/.project
+/topic2/target
+
+/Topic3-Services/.classpath
+/Topic3-Services/.project
+/Topic3-Services/target
