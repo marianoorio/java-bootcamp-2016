@@ -3,7 +3,11 @@ package com.bootcamp.topic3.ServiceUsers;
 import java.util.Hashtable;
 import java.util.Map;
 
-
+/**
+ * 
+ * Implementation for ServiceUsers Interface
+ *
+ */
 public class ServiceUsersImplementation implements ServiceUsers {
 	
 	private Map<String, User> users;
@@ -14,41 +18,40 @@ public class ServiceUsersImplementation implements ServiceUsers {
 	
 	@Override
 	public boolean createUser(User user) {
-		if(user == null || users.containsKey(user.getUserName())){
-			return false;
-		}else{
+		boolean created = false;
+		if (user != null && !users.containsKey(user.getUserName())){
 			users.put(user.getUserName(), user);
-			return true;
+			created = true;
 		}
+		return created;
 	}
 
 	@Override
 	public User readUser(String userId) {
-		if (userId == null || !users.containsKey(userId)){
-			return null;
-		}else{
-			return users.get(userId);
+		User userReturn = null;
+		if (userId != null && users.containsKey(userId)){
+			userReturn = users.get(userId);
 		}
+		return userReturn;
 	}
 
 	@Override
 	public boolean updateUser(User user) {
-		if (user == null || !users.containsKey(user.getUserName())){
-			return false;
-		}else{
+		boolean updated = false;
+		if (user != null && users.containsKey(user.getUserName())){
 			users.put(user.getUserName(), user);
-			return true;
+			updated =true;
 		}
+		return updated;
 	}
 
 	@Override
 	public boolean deleteUser(String userId) {
-		if (userId == null || !users.containsKey(userId)){
-			return false;
-		}else{
+		boolean deleted = false;
+		if (userId != null && users.containsKey(userId)){
 			users.remove(userId);
-			return true;
+			deleted = true;
 		}
+		return deleted;
 	}
-
 }

@@ -5,6 +5,11 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * Implementation for ServiceShoppingCart Interface
+ *
+ */
 public class ServiceShoppingCartImplementation implements ServiceShoppingCart{
 	
 	/**
@@ -38,6 +43,7 @@ public class ServiceShoppingCartImplementation implements ServiceShoppingCart{
 		}
 	}
 	
+	
 	private Map<String, ItemCart> cartItems;
 	
 	public ServiceShoppingCartImplementation(){
@@ -46,34 +52,39 @@ public class ServiceShoppingCartImplementation implements ServiceShoppingCart{
 	
 	@Override
 	public boolean addToCart(Item item, int quantity) {
+		boolean added = false;
 		if(item == null || cartItems.containsKey(item.getItemId())){
-			//if the cart allow to update quantity on existing add it must be here
-			return false;
+			added = false;
 		}else{
 			ItemCart itemCart = new ItemCart(item,quantity);
 			cartItems.put(item.getItemId(), itemCart);
-			return true;
+			added = true;
 		}
+		return added;
 	}
 
 	@Override
 	public boolean updateItemQuantity(Item item, int quantity) {
+		boolean updated;
 		if(item == null || !cartItems.containsKey(item.getItemId())){
-			return false;
+			updated = false;
 		}else{
 			cartItems.get(item.getItemId()).updateQuantity(quantity);
-			return true;
+			updated = true;
 		}
+		return updated;
 	}
 
 	@Override
 	public boolean removeItem(Item item) {
+		boolean removed;
 		if(item != null && cartItems.containsKey(item.getItemId())){
 			cartItems.remove(item.getItemId());
-			return true;
+			removed = true;
 		}else{
-			return false;
+			removed = false;
 		}
+		return removed;
 	}
 
 	@Override
@@ -87,10 +98,11 @@ public class ServiceShoppingCartImplementation implements ServiceShoppingCart{
 
 	@Override
 	public int getItemQuantity(Item item) {
+		int quantity = 0;
 		if (item != null && cartItems.containsKey(item.getItemId())){
-			return cartItems.get(item.getItemId()).getQuantity();
+			quantity = cartItems.get(item.getItemId()).getQuantity();
 		}
-		return 0;
+		return quantity;
 	}
 	
 	@Override
@@ -106,5 +118,4 @@ public class ServiceShoppingCartImplementation implements ServiceShoppingCart{
 	public boolean isEmpty() {
 		return cartItems.isEmpty();
 	}
-
 }

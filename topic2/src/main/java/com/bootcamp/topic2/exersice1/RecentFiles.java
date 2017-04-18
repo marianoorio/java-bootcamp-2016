@@ -12,12 +12,7 @@ import java.util.List;
  */
 
 public class RecentFiles {
-	
-	/*
-	 * typically is 15 but not always
-	 *
-	 */
-	//private final int MAX_SIZE = 15;
+	private final int DEFAULT_MAX_SIZE = 15;
 	private int maxSize;
 	
 	
@@ -31,9 +26,8 @@ public class RecentFiles {
 	 * Constructor
 	 */
 	public RecentFiles(){
-		//ArrayList is inefficient to add always on the first position?? 
 		pathList = new ArrayList<String>();
-		maxSize = 15;
+		maxSize = DEFAULT_MAX_SIZE;
 	}
 	
 	
@@ -73,25 +67,7 @@ public class RecentFiles {
 	 * Add a new entry
 	 */
 	public void add(String pathFile){
-		/*if(pathList.contains(pathFile))
-		{
-			pathList.remove(pathFile);
-		}
-		if(isFull()){
-			pathList.remove(pathList.size() - 1);
-		}
-		pathList.add(0,pathFile);*/
-		
-		/*REFACTOR
-		 *1.ArrayList.remove(Object o) Returns true if this list contained the specified element 
-		 * (or equivalently, if this list changed as a result of the call).
-		 * So remove checks if the element exists
-		 *2.Also if the list is full and remove the existent element,
-		 *  the list is not more full.
-		 *  So only need to drop the older if !remove && isFull
-		 */
 		if((!pathList.remove(pathFile)) && (this.isFull())){
-			//drop the last
 			this.removeLastElements(1);
 		}
 		pathList.add(0,pathFile);

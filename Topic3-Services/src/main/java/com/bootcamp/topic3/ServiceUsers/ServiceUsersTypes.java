@@ -1,5 +1,10 @@
 package com.bootcamp.topic3.ServiceUsers;
 
+/**
+ * 
+ * Enum for types of users services
+ *
+ */
 public enum ServiceUsersTypes {
 	LOCAL_SERVICE("localService");
 

@@ -1,6 +1,5 @@
 package com.bootcamp.topic3.ServiceShoppingCart;
 
-
 /**
  * 
  * Factory of shopping cart service
@@ -13,12 +12,13 @@ public class ServiceShoppingCartFactory {
 	/**
 	 * 
 	 * @param type of service
-	 * @return a service of shopping cart
+	 * @return the shopping cart service requested
+	 * @throws ServiceNotFoundException 
 	 */
-	public static ServiceShoppingCart getShoppingCartService(ServiceShoppingCartTypes type) {
+	public static ServiceShoppingCart getShoppingCartService(ServiceShoppingCartTypes type) throws ServiceNotFoundException {
 		if (ServiceShoppingCartTypes.LOCAL_SERVICE.equals(type)) {
 			return new ServiceShoppingCartImplementation();
 		}
-		return null;
+		throw new ServiceNotFoundException();
 	}
 }

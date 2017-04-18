@@ -6,8 +6,8 @@ package com.bootcamp.topic3.ServiceUsers;
  * CRUD Operations
  *
  */
-
 public interface ServiceUsers {
+	
 	/**
 	 * 
 	 * @param user to create

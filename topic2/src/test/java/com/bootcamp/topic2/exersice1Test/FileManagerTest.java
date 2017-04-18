@@ -1,6 +1,8 @@
 package com.bootcamp.topic2.exersice1Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -17,7 +19,6 @@ import com.bootcamp.topic2.exersice1.FileManager;
  * Unit test for FileManager class
  *
  */
-
 //@RunWith attaches a runner with the test class to initialize the test data
 @RunWith(MockitoJUnitRunner.class)
 public class FileManagerTest {
@@ -26,12 +27,6 @@ public class FileManagerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		//spy the class because it's applying a singleton pattern and can't inject mock
-		fileManager = Mockito.spy(fileManager);
-		//Mockito.when(fileManager.getBufferedReader(Mockito.any(File.class))).thenReturn(null);
-		//Alternative when.then way
-		Mockito.doReturn(null).when(fileManager).getBufferedReader(Mockito.any(File.class));
-		
 	}
 
 	@After
@@ -46,8 +41,15 @@ public class FileManagerTest {
 	
 	@Test
 	public final void whenFileIsOpennedItIsAddedToTheRecentFileList(){
-		 fileManager.openFile(new File("file0"));
-		 Assert.assertEquals("file0", fileManager.getRecentFiles().getLastRecent());
+		fileManager = Mockito.spy(fileManager);
+		try{
+			Mockito.doReturn(null).when(fileManager).getBufferedReader(Mockito.any(File.class)); 
+		}catch(FileNotFoundException e){
+			Logger.getAnonymousLogger().severe(e.getMessage());
+		}
+		
+		fileManager.openFile(new File("file0"));
+		Assert.assertEquals("file0", fileManager.getRecentFiles().getLastRecent());
 	}
 
 }

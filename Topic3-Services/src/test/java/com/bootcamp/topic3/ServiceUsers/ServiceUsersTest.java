@@ -6,6 +6,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * 
+ * Unit test for users services
+ *
+ */
+
 public class ServiceUsersTest {
 	
 	ServiceUsers users;

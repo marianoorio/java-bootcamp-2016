@@ -12,6 +12,11 @@ import org.junit.Test;
 import com.bootcamp.topic2.exersice2.Blog;
 import com.bootcamp.topic2.exersice2.Post;
 
+/**
+ * 
+ * Unit test for blog class
+ *
+ */
 public class BlogTest {
 	
 	Blog blog;
@@ -59,15 +64,13 @@ public class BlogTest {
 			Post mockPost = new Post("Author", "Header", "Body");
 			blog.addPost(mockPost);
 		}
-		Assert.assertEquals(10,blog.getLastestPosts(10).size());
+		Assert.assertEquals(10,blog.getLatestPosts(10).size());
 	}
 	
 	@Test
 	public final void whenWantToGetTheMostRecentlyPostsThePostsReturnedAreTheLasts(){
-		
 		int countPost = 15;
 		List<Post> compare = new ArrayList<Post>();
-		
 		for (int index=0; index < countPost*2; index++){
 			Post mockPost = new Post("Author", "Header", "Body");
 			blog.addPost(mockPost);
@@ -75,8 +78,6 @@ public class BlogTest {
 				compare.add(0,mockPost);
 			}
 		}
-		
-		Assert.assertEquals(compare,blog.getLastestPosts(countPost));
+		Assert.assertEquals(compare,blog.getLatestPosts(countPost));
 	}
-
 }

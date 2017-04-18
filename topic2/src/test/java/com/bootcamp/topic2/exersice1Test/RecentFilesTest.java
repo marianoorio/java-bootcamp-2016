@@ -55,14 +55,6 @@ public class RecentFilesTest {
 			recentFiles.add(stringBuilder.toString());
 		}
 		recentFiles.add("file15");
-		
-		/*
-		Assert.assertEquals("file15", recentFiles.getLastRecent());
-		Assert.assertEquals(15, recentFiles.size());
-		*/
-		
-		//Better compare the whole list
-		//Multiples asserts are not good practice
 		List<String> compareList = new ArrayList<String>();
 		for (int i=1; i < 16; i++){
 			StringBuilder stringBuilder = new StringBuilder ("file");
