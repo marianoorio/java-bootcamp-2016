@@ -10,10 +10,10 @@ public class Item {
 	private float itemPrice;
 	private int itemStockQuantity;
 	
-	public Item(String itemId, String itemDescription, float d, int itemStockQuantity){
+	public Item(String itemId, String itemDescription, float itemPrice, int itemStockQuantity){
 		this.itemId = itemId;
 		this.itemDescription = itemDescription;
-		this.itemPrice = d;
+		this.itemPrice = itemPrice;
 		this.itemStockQuantity = itemStockQuantity;
 	}
 
