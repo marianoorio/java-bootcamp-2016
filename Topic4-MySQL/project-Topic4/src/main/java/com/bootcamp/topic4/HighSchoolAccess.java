@@ -5,6 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * This class performs consult query on the high_school data base
+ *
+ */
 public class HighSchoolAccess {
 	
 	private JDBCConnection dbConnection = null;
