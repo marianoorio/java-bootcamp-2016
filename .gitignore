@@ -23,3 +23,7 @@ hs_err_pid*
 /Topic3-Services/.classpath
 /Topic3-Services/.project
 /Topic3-Services/target
+
+/Topic4-MySQL/project-Topic4/.classpath
+/Topic4-MySQL/project-Topic4/.project
+/Topic4-MySQL/project-Topic4/target
