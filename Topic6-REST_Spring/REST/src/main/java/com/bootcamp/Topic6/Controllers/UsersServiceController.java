@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,7 @@ public class UsersServiceController {
 	 * SERVICE_UNAVAILABLE if can not access to the local service
 	 * CONFLICT if the user already exists
 	 */
-	@RequestMapping(value = "/create")
+	@RequestMapping(value = "/create",consumes = { "application/json" }, method = RequestMethod.POST)
 	public ResponseEntity<Void> createUser(@RequestBody User userRequest){
 		ResponseEntity<Void> response;
 		try{
@@ -60,7 +61,7 @@ public class UsersServiceController {
 	 * SERVICE_UNAVAILABLE if can not access to the local service
 	 * CONFLICT if the user not exists
 	 */
-	@RequestMapping(value = "/delete")
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteUser(@RequestParam(value="userName", defaultValue="notValidUserName") String userName){
 		ResponseEntity<Void> response;
 		try{
@@ -85,7 +86,7 @@ public class UsersServiceController {
 	 * SERVICE_UNAVAILABLE if can not access to the local service
 	 * CONFLICT if the user not exists
 	 */
-	@RequestMapping(value = "/update")
+	@RequestMapping(value = "/update",consumes = { "application/json" }, method = RequestMethod.PUT)
 	public ResponseEntity<Void> updateUser(@RequestBody User userRequest){
 		ResponseEntity<Void> response;
 		try{
@@ -110,7 +111,7 @@ public class UsersServiceController {
 	 * SERVICE_UNAVAILABLE if can not access to the local service
 	 * CONFLICT if the user not exists
 	 */
-	@RequestMapping(value= "/read")
+	@RequestMapping(value= "/read",produces = { "application/json" }, method = RequestMethod.GET)
 	public ResponseEntity<User> readUser(@RequestParam(value="userName", defaultValue="notValidUserName") String userName){
 		ResponseEntity<User> response;
 		try{
@@ -136,7 +137,7 @@ public class UsersServiceController {
 	 * SERVICE_UNAVAILABLE if can not access to the local service
 	 * CONFLICT if no one have that name
 	 */
-	@RequestMapping(value= "/readByName")
+	@RequestMapping(value= "/readByName", produces = { "application/json" }, method = RequestMethod.GET)
 	public ResponseEntity<Collection<User>> readUserByName(@RequestParam(value="name", defaultValue="imNotAnEnteredName") String name){
 		ResponseEntity<Collection<User>> response;
 		try{
