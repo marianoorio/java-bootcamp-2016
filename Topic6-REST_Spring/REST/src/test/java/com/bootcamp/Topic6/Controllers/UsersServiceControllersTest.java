@@ -143,10 +143,10 @@ public class UsersServiceControllersTest {
 	@Test
 	public void whenReadsAnExistentUserItIsReturned() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(put("/users/read?=userName=user").contentType(contentType))
+		this.mockMvc.perform(get("/users/read?=userName=user").contentType(contentType))
 					.andExpect(status().isOk())
 					.andExpect(content().contentType(contentType))
 					.andExpect(content().string(this.json(LocalUserService.getService().readUser("user"))));
@@ -155,48 +155,48 @@ public class UsersServiceControllersTest {
 	@Test
 	public void whenReadsAnUnexistentUserItsSendsConflict() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(put("/users/read?=userName=userNotIn").contentType(contentType))
+		this.mockMvc.perform(get("/users/read?=userName=userNotIn").contentType(contentType))
 					.andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenReadsByNameAnUnexistentNameItsSendsConflict() throws IOException, Exception {
 		User user = new User("user","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user0 = new User("user0","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user0)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user0)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user1 = new User("user1","password","name","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user1)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user1)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user2 = new User("user2","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user2)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user2)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(put("/users/readByName?name=notNameIn").contentType(contentType))
+		this.mockMvc.perform(get("/users/readByName?name=notNameIn").contentType(contentType))
 					.andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenReadsByNameAnExistentNameItsReturnTheUsersAssosiated() throws IOException, Exception {
 		User user = new User("user","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user0 = new User("user0","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user0)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user0)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user1 = new User("user1","password","name","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user1)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user1)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user2 = new User("user2","password","sameName","email");
-		this.mockMvc.perform(get("/users/create").content(this.json(user2)).contentType(contentType))
+		this.mockMvc.perform(post("/users/create").content(this.json(user2)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(put("/users/readByName?name=sameName").contentType(contentType))
+		this.mockMvc.perform(get("/users/readByName?name=sameName").contentType(contentType))
 					.andExpect(status().isOk())
 					.andExpect(content().contentType(contentType));
 					//HOW TO TEST AN COLLECTION RETURNED BY REST??
