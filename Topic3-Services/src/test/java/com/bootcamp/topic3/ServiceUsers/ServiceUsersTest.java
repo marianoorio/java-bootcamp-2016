@@ -11,7 +11,6 @@ import org.junit.Test;
  * Unit test for users services
  *
  */
-
 public class ServiceUsersTest {
 	
 	ServiceUsers users;
