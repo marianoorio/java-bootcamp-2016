@@ -12,7 +12,7 @@ import com.bootcamp.Topic6.Exceptions.UserNotFoundException;
  * Provides CRUD Operations 
  * 
  */
-public interface ServiceUsers {
+public interface UserService {
 	
 	/**
 	 *  Creates a new user into the service
@@ -22,7 +22,7 @@ public interface ServiceUsers {
 	 * @throws UserAlreadyExistsException
 	 * If the userName alreadyExists
 	 */
-	public void createUser(User user)throws UserAlreadyExistsException;
+	public void create(User user)throws UserAlreadyExistsException;
 	
 	/**
 	 * Obtains an existent user by its identifier field
@@ -34,7 +34,7 @@ public interface ServiceUsers {
 	 * @throws UserNotFoundException
 	 * If the user is not found
 	 */
-	public User readUser(String userName) throws UserNotFoundException;
+	public User read(String userName) throws UserNotFoundException;
 	
 	/**
 	 * Updates an existent user
@@ -45,7 +45,7 @@ public interface ServiceUsers {
 	 * @throws UserNotFoundException
 	 * If the user is not found
 	 */
-	public void updateUser(User user) throws UserNotFoundException;
+	public void update(User user) throws UserNotFoundException;
 	
 	/**
 	 * Deletes an existent user by its identifier field
@@ -55,7 +55,7 @@ public interface ServiceUsers {
 	 * @throws UserNotFoundException
 	 * If the user is not found
 	 */
-	public void deleteUser(String userId) throws UserNotFoundException;
+	public void delete(String userId) throws UserNotFoundException;
 	
 	/**
 	 * Obtains a list of users that shares the name requested
@@ -67,7 +67,7 @@ public interface ServiceUsers {
 	 * @throws UserNotFoundException
 	 * If no one user have the name requested
 	 */
-	public List<User> readUsersByName(String name) throws UserNotFoundException;
+	public List<User> readByName(String name) throws UserNotFoundException;
 	
 	/**
 	 * Obtains the number of existents users
@@ -76,4 +76,9 @@ public interface ServiceUsers {
 	 * the size of the users container
 	 */
 	public int size();
+	
+	/**
+	 * Clears the map of users
+	 */
+	public void clearContents();
 }

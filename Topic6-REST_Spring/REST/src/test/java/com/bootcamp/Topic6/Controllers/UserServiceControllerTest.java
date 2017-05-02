@@ -20,9 +20,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.bootcamp.Topic6.Application.Application;
+import com.bootcamp.Topic6.Application;
 import com.bootcamp.Topic6.Entities.User;
-import com.bootcamp.Topic6.Services.LocalUserService;
+import com.bootcamp.Topic6.Services.UserService;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class)
 @WebAppConfiguration
-public class UsersServiceControllersTest {
+public class UserServiceControllerTest {
 	
 	private MediaType contentType = new MediaType(	MediaType.APPLICATION_JSON.getType(),
 													MediaType.APPLICATION_JSON.getSubtype(),
@@ -76,10 +76,14 @@ public class UsersServiceControllersTest {
 		return mockHttpOutputMessage.getBodyAsString();
 	}
 	
+	
+	@Autowired
+	private UserService userService;
+	
 	@Before
 	public void setUp() throws Exception {
 		this.mockMvc = webAppContextSetup(webApplicationContext).build();
-		LocalUserService.clearService();
+		userService.clearContents();
 	}
 
 	@After
@@ -89,117 +93,115 @@ public class UsersServiceControllersTest {
 	@Test
 	public void whenCreatesAnUserItsIsAdded() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
-		Assert.assertEquals(user,LocalUserService.getService().readUser("user"));
+		Assert.assertEquals(user,userService.read("user"));
 	}
 	
 	@Test
 	public void whenCreatesAnExistentUserItIsNotDuplicatedAndThrowException() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 		.andExpect(status().isConflict());
 	}
 	@Test
 	public void whenDeletesAnUserItsIsDeleted() throws IOException, Exception {
-		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		User user = new User("Juan","password","name","email");
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(delete("/users/delete?userName=user")).andExpect(status().isOk());
+		this.mockMvc.perform(delete("/users/Juan")).andExpect(status().isOk());
 	}
 	
 	@Test
 	public void whenDeletesAnUnexistentUserItsSendConflict() throws IOException, Exception {
 		
-		this.mockMvc.perform(delete("/users/delete")).andExpect(status().isConflict());
+		this.mockMvc.perform(delete("/users/Juan")).andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenUpdatesAnUserItsIsUpdated() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
 		user.setName("Jonh");
-		this.mockMvc.perform(put("/users/update").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(put("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
-		Assert.assertEquals(user,LocalUserService.getService().readUser("user"));
+		Assert.assertEquals(user,userService.read("user"));
 	}
 	
 	@Test
 	public void whenUpdatesAnUnexistentUserItIsNotUpdatedAndSendsConflict() throws IOException, Exception {
 		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
 		User user0 = new User("user1","password","name","email");
-		this.mockMvc.perform(put("/users/update").content(this.json(user0)).contentType(contentType))
+		this.mockMvc.perform(put("/users").content(this.json(user0)).contentType(contentType))
 					.andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenReadsAnExistentUserItIsReturned() throws IOException, Exception {
-		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		User user = new User("Frank","password","name","email");
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/users/read?=userName=user").contentType(contentType))
+		this.mockMvc.perform(get("/users/Frank").contentType(contentType))
 					.andExpect(status().isOk())
-					.andExpect(content().contentType(contentType))
-					.andExpect(content().string(this.json(LocalUserService.getService().readUser("user"))));
+					.andExpect(content().string(this.json(userService.read("Frank"))));
 	}
 	
 	@Test
 	public void whenReadsAnUnexistentUserItsSendsConflict() throws IOException, Exception {
-		User user = new User("user","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		User user = new User("Matt","password","name","email");
+		this.mockMvc.perform(post("/users").content(this.json(user)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/users/read?=userName=userNotIn").contentType(contentType))
+		this.mockMvc.perform(get("/users/Frank").contentType(contentType))
 					.andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenReadsByNameAnUnexistentNameItsSendsConflict() throws IOException, Exception {
-		User user = new User("user","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		User userA = new User("userA","password","sameName","email");
+		this.mockMvc.perform(post("/users").content(this.json(userA)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user0 = new User("user0","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user0)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user0)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user1 = new User("user1","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user1)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user1)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user2 = new User("user2","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user2)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user2)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/users/readByName?name=notNameIn").contentType(contentType))
+		this.mockMvc.perform(get("/users/byName/Matt").contentType(contentType))
 					.andExpect(status().isConflict());
 	}
 	
 	@Test
 	public void whenReadsByNameAnExistentNameItsReturnTheUsersAssosiated() throws IOException, Exception {
-		User user = new User("user","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user)).contentType(contentType))
+		User userA = new User("userA","password","sameName","email");
+		this.mockMvc.perform(post("/users").content(this.json(userA)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user0 = new User("user0","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user0)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user0)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user1 = new User("user1","password","name","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user1)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user1)).contentType(contentType))
 					.andExpect(status().isOk());
 		User user2 = new User("user2","password","sameName","email");
-		this.mockMvc.perform(post("/users/create").content(this.json(user2)).contentType(contentType))
+		this.mockMvc.perform(post("/users").content(this.json(user2)).contentType(contentType))
 					.andExpect(status().isOk());
 		
-		this.mockMvc.perform(get("/users/readByName?name=sameName").contentType(contentType))
+		this.mockMvc.perform(get("/users/byName/sameName").contentType(contentType))
 					.andExpect(status().isOk())
 					.andExpect(content().contentType(contentType));
-					//HOW TO TEST AN COLLECTION RETURNED BY REST??
 	}
 
 }

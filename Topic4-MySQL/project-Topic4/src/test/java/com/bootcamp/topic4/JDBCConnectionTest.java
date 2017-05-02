@@ -16,11 +16,9 @@ public class JDBCConnectionTest {
 
 	@Test
 	public void test() {
-		HighSchoolAccess highSchool = new HighSchoolAccess();
-		highSchool.listSchedulesOfTeacher(2);
-		highSchool.listSchedulesOfTeacher(1);
-		
-		//HOW MUST BE AN ASSERT IN THIS CASE?
+		SchedulesDAO highSchool = new SchedulesDAOimpl();
+		highSchool.schedulesOfTeacher(2);
+		highSchool.schedulesOfTeacher(1);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.bootcamp.topic4;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.util.logging.Logger;
 
 /**
@@ -10,22 +11,15 @@ import java.util.logging.Logger;
  * This class performs consult query on the high_school data base
  *
  */
-public class HighSchoolAccess {
+public class SchedulesDAOimpl implements SchedulesDAO{
 	
 	private JDBCConnection dbConnection = null;
-	private ResultSet results = null;
-	private PreparedStatement statement = null;
 	
-	public HighSchoolAccess(){
+	public SchedulesDAOimpl(){
 	}
 	
-	/**
-	 * Gets and show on console the schedules of a given teacher
-	 * 
-	 * @param idTeacher identifier of teacher
-	 * 
-	 */
-	public void listSchedulesOfTeacher(int idTeacher){
+	@Override
+	public void schedulesOfTeacher(int idTeacher){
 		Integer id = new Integer(idTeacher);
 		dbConnection = JDBCConnection.getInstance();
 		if(dbConnection != null && !dbConnection.isClosed()){
@@ -37,16 +31,12 @@ public class HighSchoolAccess {
 			statementBuilder.append(" JOIN courses_schedules as COURSE_SCHEDULE ON (COURSE_SCHEDULE.id_course = COURSE.id_course)");
 			statementBuilder.append(" WHERE TEACHER.id_teacher = ?");
 			statementBuilder.append(" ORDER BY COURSE_SCHEDULE.day_of_week;");
-			try {
-				statement = dbConnection.getConnection().prepareStatement(statementBuilder.toString());
+			
+			try (PreparedStatement statement = 
+					dbConnection.getConnection().prepareStatement(statementBuilder.toString())){
 				statement.setString(1, id.toString());
-				results = statement.executeQuery();
+				ResultSet results = statement.executeQuery();
 				showSchedulesOfTeacher(results);
-				statement.close();
-				statement = null;
-				results.close();
-				results = null;
-				dbConnection.closeConnection();
 			} catch (SQLException e) {
 				Logger.getAnonymousLogger().severe(e.getMessage());
 			}
@@ -76,7 +66,7 @@ public class HighSchoolAccess {
 					resultString.append(System.getProperty("line.separator"));
 					iteration ++;
 				}
-				resultString.append(intToDay(Integer.valueOf(results.getString("day_of_week"))).getName());
+				resultString.append(DayOfWeek.of(Integer.valueOf(results.getString("day_of_week"))));
 				resultString.append("		");
 				resultString.append(results.getString("start_time").substring(0, 5));
 				resultString.append(" - ");
@@ -86,62 +76,5 @@ public class HighSchoolAccess {
 				System.out.println(resultString.toString());	
 			}		
 		}
-	}
-	
-	/**
-	 * 
-	 * Enum for days of week
-	 *
-	 */
-	private enum Day{
-		SUNDAY(0,"Sunday"), 
-		MONDAY(1,"Monday"),
-		TUESDAY(2,"Tuesday"),
-		WEDNESDAY(3,"Wednesday"),
-		THURSDAY(4,"Thursday"),
-		FRIDAY(5,"Friday"),
-		SATURDAY(6, "Saturday");
-
-	    int value;
-	    String name;
-
-	    private Day(int value, String name) {
-	        this.value = value;
-	        this.name = name;
-	    }
-	    
-	    public String getName(){
-	    	return this.name;
-	    }
-	    
-	    public int getValue(){
-	    	return this.value;
-	    }
-	}
-	
-	/**
-	 * Return the day of an given index
-	 * 
-	 * @param dayValue index of day
-	 * @return the day associated at index / null if the index is > 6
-	 */
-	private Day intToDay(int dayValue){
-		Day dayReturn = null;
-		if (dayValue == 0){
-			dayReturn = Day.SUNDAY;
-		}else if (dayValue == 1){
-			dayReturn = Day.MONDAY;
-		}else if (dayValue == 2){
-			dayReturn = Day.TUESDAY;
-		}else if (dayValue == 3){
-			dayReturn = Day.WEDNESDAY;
-		}else if (dayValue == 4){
-			dayReturn = Day.THURSDAY;
-		}else if (dayValue == 5){
-			dayReturn = Day.FRIDAY;
-		}else if (dayValue == 6){
-			dayReturn = Day.SATURDAY;
-		}
-		return dayReturn;
 	}
 }

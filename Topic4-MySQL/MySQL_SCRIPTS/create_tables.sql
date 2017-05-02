@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS courses_schedules
 	end_time TIME NOT NULL,
 	PRIMARY KEY (id_course, day_of_week, start_time, end_time),
 	FOREIGN KEY (id_course) REFERENCES courses(id_course), 
-	CHECK (day_of_week < 7)
+	CHECK ( day_of_week >0 AND day_of_week < 8)
 );
 
 CREATE TABLE IF NOT EXISTS courses_students

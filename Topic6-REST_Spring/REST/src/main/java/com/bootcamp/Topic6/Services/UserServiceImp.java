@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 /**
  * 
  * Implementation for ServiceUsers Interface
@@ -19,43 +21,46 @@ import java.util.Map;
  * Use singleton pattern
  *
  */
-public class LocalUserService implements ServiceUsers {
-	private static ServiceUsers cachedUserService = null;
+@Service
+public class UserServiceImp implements UserService {
 	
-	private Map<String, User> users;
+	
+	
+	private Map<String, User> users = new Hashtable<>();
 	
 	/**
 	 * private Constructor for apply singleton patter
-	 */
+	 
 	private LocalUserService(){
 		users = new Hashtable<String, User>();
-	}
+	}*/
 	
 	/**
 	 * 
 	 * @return
 	 * The unique instance of the service
-	 */
-	public static ServiceUsers getService(){
+	 
+	public static UserService getService(){
 		if( cachedUserService == null){
 			cachedUserService = new LocalUserService();
 		}
 		return cachedUserService;
-	}
+	}*/
 	
 	/**
 	 * Deletes the current instance for clean values
-	 */
+	 
 	public static void clearService(){
-		cachedUserService = null;
-	}
+		//cachedUserService = null;
+		users.clear();
+	}*/
 	
 	@Override
 	public int size(){
 		return users.size();
 	}
 	@Override
-	public void createUser(User user) throws UserAlreadyExistsException {
+	public void create(User user) throws UserAlreadyExistsException {
 		if (user != null && !users.containsKey(user.getUserName())){
 			users.put(user.getUserName(), user);
 		}else{
@@ -64,7 +69,7 @@ public class LocalUserService implements ServiceUsers {
 	}
 
 	@Override
-	public User readUser(String userId) throws UserNotFoundException{
+	public User read(String userId) throws UserNotFoundException{
 		User userReturn = null;
 		if (userId != null && users.containsKey(userId)){
 			userReturn = users.get(userId);
@@ -75,7 +80,7 @@ public class LocalUserService implements ServiceUsers {
 	}
 
 	@Override
-	public void updateUser(User user) throws UserNotFoundException{
+	public void update(User user) throws UserNotFoundException{
 		if (user != null && users.containsKey(user.getUserName())){
 			users.put(user.getUserName(), user);
 		}else{
@@ -84,7 +89,7 @@ public class LocalUserService implements ServiceUsers {
 	}
 
 	@Override
-	public void deleteUser(String userId) throws UserNotFoundException{
+	public void delete(String userId) throws UserNotFoundException{
 		if (userId != null && users.containsKey(userId)){
 			users.remove(userId);
 		}else{
@@ -93,7 +98,7 @@ public class LocalUserService implements ServiceUsers {
 	}
 
 	@Override
-	public List<User> readUsersByName(String name) throws UserNotFoundException {
+	public List<User> readByName(String name) throws UserNotFoundException {
 		List<User> returnUsers = new ArrayList<User>();
 		Iterator<String> it = users.keySet().iterator();
 		while(it.hasNext()){
@@ -106,5 +111,9 @@ public class LocalUserService implements ServiceUsers {
 			throw new UserNotFoundException();
 		}
 		return returnUsers;
+	}
+	@Override
+	public void clearContents() {
+		users.clear();
 	}
 }
