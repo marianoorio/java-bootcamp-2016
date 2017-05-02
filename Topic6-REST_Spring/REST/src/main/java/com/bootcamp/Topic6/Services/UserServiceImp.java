@@ -18,42 +18,14 @@ import org.springframework.stereotype.Service;
  * It's a local service allocated in memory
  * It stores the users in a Hashtable with String key and User value
  * 
- * Use singleton pattern
+ *
  *
  */
 @Service
 public class UserServiceImp implements UserService {
 	
-	
-	
 	private Map<String, User> users = new Hashtable<>();
 	
-	/**
-	 * private Constructor for apply singleton patter
-	 
-	private LocalUserService(){
-		users = new Hashtable<String, User>();
-	}*/
-	
-	/**
-	 * 
-	 * @return
-	 * The unique instance of the service
-	 
-	public static UserService getService(){
-		if( cachedUserService == null){
-			cachedUserService = new LocalUserService();
-		}
-		return cachedUserService;
-	}*/
-	
-	/**
-	 * Deletes the current instance for clean values
-	 
-	public static void clearService(){
-		//cachedUserService = null;
-		users.clear();
-	}*/
 	
 	@Override
 	public int size(){
